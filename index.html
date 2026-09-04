@@ -155,7 +155,16 @@
   @media (max-width:640px){
     .exp-item{ grid-template-columns:1fr; gap:6px; }
     #about .grid{ grid-template-columns:1fr; gap:32px; }
-    nav ul{ display:none; }
+    .navtoggle{ display:block; }
+    nav#mainnav{
+      position:absolute; top:64px; left:0; right:0;
+      background:var(--panel); border-bottom:1px solid var(--grid);
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
+    }
+    nav#mainnav.open{ max-height:320px; }
+    nav#mainnav ul{ flex-direction:column; gap:0; padding:8px 28px 16px; }
+    nav#mainnav ul li{ border-bottom:1px solid var(--grid-faint); }
+    nav#mainnav ul a{ display:block; padding:14px 0; font-size:15px; }
   }
 
   /* education */
@@ -178,7 +187,7 @@
 <header>
   <div class="wrap">
     <a href="#hero" class="mark">SAINUL<span>.</span>ABID</a>
-    <nav>
+    <nav id="mainnav">
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -187,6 +196,7 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <button class="navtoggle" id="navtoggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
   </div>
 </header>
 
@@ -417,6 +427,23 @@
 <footer>
   <div class="wrap">© 2026 Sainul Abid. Built with intent, not a template.</div>
 </footer>
+
+<script>
+  const navToggle = document.getElementById('navtoggle');
+  const mainNav = document.getElementById('mainnav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    navToggle.textContent = isOpen ? '✕' : '☰';
+  });
+  mainNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.textContent = '☰';
+    });
+  });
+</script>
 
 </body>
 </html>
