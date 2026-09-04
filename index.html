@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sainul Abid — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1A2B;
+    --panel:#13233A;
+    --grid:#25405F;
+    --grid-faint:#1A2E48;
+    --text:#EAF0F7;
+    --text-dim:#8DA3C2;
+    --accent:#FF8A3D;
+    --maxw:960px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--grid-faint) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-faint) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  h1,h2,h3,.label,nav,.tag{ font-family:'Space Grotesk', sans-serif; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  /* nav */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(15,26,43,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--grid);
+  }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .mark{ font-weight:700; font-size:18px; letter-spacing:0.5px; }
+  .mark span{ color:var(--accent); }
+  nav ul{ list-style:none; display:flex; gap:28px; }
+  nav a{ font-size:14px; color:var(--text-dim); transition:color .15s; }
+  nav a:hover{ color:var(--text); }
+  .navtoggle{ display:none; background:none; border:1px solid var(--grid); color:var(--text); width:36px; height:36px; border-radius:4px; font-size:18px; cursor:pointer; }
+
+  /* dimension line divider */
+  .dim{
+    display:flex; align-items:center; gap:8px;
+    margin:0 0 40px 0; color:var(--text-dim); font-size:12px;
+  }
+  .dim .line{ flex:1; height:1px; background:var(--grid); position:relative; }
+  .dim .line::before, .dim .line::after{
+    content:''; position:absolute; top:-4px; width:1px; height:9px; background:var(--grid);
+  }
+  .dim .line::before{ left:0; }
+  .dim .line::after{ right:0; }
+
+  section{ padding:96px 0; border-bottom:1px solid var(--grid-faint); }
+  section:last-of-type{ border-bottom:none; }
+
+  /* hero */
+  #hero{
+    padding-top:120px; padding-bottom:110px; position:relative; overflow:hidden;
+  }
+  .coord{
+    font-size:12px; color:var(--accent); letter-spacing:0.5px; margin-bottom:18px;
+    opacity:0; animation: fadein .6s ease forwards; animation-delay:.1s;
+  }
+  #hero h1{
+    font-size:clamp(40px, 7vw, 76px); font-weight:700; line-height:1.02; letter-spacing:-1px;
+    max-width:820px;
+    opacity:0; animation: fadein .7s ease forwards; animation-delay:.22s;
+  }
+  #hero .role{
+    margin-top:22px; font-size:19px; color:var(--text-dim); max-width:560px;
+    opacity:0; animation: fadein .7s ease forwards; animation-delay:.38s;
+  }
+  #hero .ctas{ margin-top:38px; display:flex; gap:14px; flex-wrap:wrap;
+    opacity:0; animation: fadein .7s ease forwards; animation-delay:.5s;
+  }
+  @keyframes fadein{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  .btn{
+    display:inline-block; padding:13px 22px; border-radius:3px; font-size:14px; font-weight:600;
+    border:1px solid var(--grid);
+  }
+  .btn.primary{ background:var(--accent); color:#0F1A2B; border-color:var(--accent); }
+  .btn.primary:hover{ background:#ff9a52; }
+  .btn.ghost{ color:var(--text); }
+  .btn.ghost:hover{ border-color:var(--text-dim); }
+
+  .stackline{
+    margin-top:56px; display:flex; flex-wrap:wrap; gap:10px 22px;
+    font-size:13px; color:var(--text-dim); border-top:1px solid var(--grid); padding-top:22px;
+    opacity:0; animation: fadein .7s ease forwards; animation-delay:.62s;
+  }
+  .stackline b{ color:var(--text); font-weight:500; }
+
+  h2.sec-title{ font-size:30px; font-weight:600; margin-bottom:8px; }
+  .sec-sub{ color:var(--text-dim); font-size:15px; margin-bottom:44px; max-width:560px; }
+
+  /* about */
+  #about .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:56px; }
+  #about p{ color:var(--text-dim); margin-bottom:16px; font-size:15.5px; }
+  #about p:last-child{ margin-bottom:0; }
+  #about .fact{ border-left:2px solid var(--grid); padding-left:16px; margin-bottom:22px; }
+  #about .fact .n{ font-family:'Space Grotesk'; font-size:26px; color:var(--accent); font-weight:600; }
+  #about .fact .d{ font-size:13px; color:var(--text-dim); margin-top:2px; }
+
+  /* skills */
+  .skillgrid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:1px; background:var(--grid-faint); border:1px solid var(--grid-faint); }
+  .skillcat{ background:var(--panel); padding:24px; }
+  .skillcat h3{ font-size:14px; color:var(--accent); margin-bottom:14px; font-weight:600; letter-spacing:.3px; }
+  .skillcat ul{ list-style:none; }
+  .skillcat li{ font-size:14px; color:var(--text-dim); padding:5px 0; border-bottom:1px dashed var(--grid-faint); }
+  .skillcat li:last-child{ border-bottom:none; }
+
+  /* projects */
+  .project{
+    border:1px solid var(--grid-faint); background:var(--panel); margin-bottom:20px; padding:30px;
+    display:grid; grid-template-columns: 1fr; gap:18px; position:relative;
+  }
+  .project .ptop{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+  .project h3{ font-size:21px; font-weight:600; }
+  .project .role{ font-size:13px; color:var(--text-dim); margin-top:4px; }
+  .project .period{ font-size:12px; color:var(--text-dim); white-space:nowrap; border:1px solid var(--grid); padding:5px 10px; border-radius:3px; }
+  .project p.desc{ color:var(--text-dim); font-size:14.5px; max-width:680px; }
+  .project ul.points{ list-style:none; color:var(--text-dim); font-size:14px; display:grid; gap:8px; }
+  .project ul.points li{ padding-left:16px; position:relative; }
+  .project ul.points li::before{ content:'—'; position:absolute; left:0; color:var(--accent); }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+  .tag{ font-size:11.5px; color:var(--accent); border:1px solid #3a3020; background:rgba(255,138,61,0.08); padding:4px 9px; border-radius:3px; }
+
+  .exp-item{ display:grid; grid-template-columns: 160px 1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--grid-faint); }
+  .exp-item:last-child{ border-bottom:none; }
+  .exp-item .period{ font-size:13px; color:var(--text-dim); }
+  .exp-item h3{ font-size:18px; font-weight:600; }
+  .exp-item .role{ font-size:13.5px; color:var(--accent); margin:2px 0 10px; }
+  .exp-item ul{ list-style:none; color:var(--text-dim); font-size:14px; display:grid; gap:7px; }
+  .exp-item ul li{ padding-left:16px; position:relative; }
+  .exp-item ul li::before{ content:'—'; position:absolute; left:0; color:var(--text-dim); }
+
+  @media (max-width:640px){
+    .exp-item{ grid-template-columns:1fr; gap:6px; }
+    #about .grid{ grid-template-columns:1fr; gap:32px; }
+    nav ul{ display:none; }
+  }
+
+  /* education */
+  .edu{ border:1px solid var(--grid-faint); background:var(--panel); padding:28px; }
+  .edu h3{ font-size:18px; font-weight:600; }
+  .edu .meta{ color:var(--text-dim); font-size:14px; margin-top:6px; }
+
+  /* contact */
+  #contact{ padding-bottom:120px; }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+  .contact-grid a.big{ font-size:22px; font-weight:600; color:var(--text); display:block; margin-bottom:14px; }
+  .contact-grid a.big:hover{ color:var(--accent); }
+  .contact-list{ color:var(--text-dim); font-size:14.5px; display:grid; gap:10px; }
+  footer{ text-align:left; padding:28px 0 60px; color:var(--text-dim); font-size:12.5px; border-top:1px solid var(--grid-faint); }
+  @media (max-width:640px){ .contact-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="#hero" class="mark">SAINUL<span>.</span>ABID</a>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="wrap">
+    <div class="coord">FULL STACK ENGINEER — VUE · FIREBASE · MERN</div>
+    <h1>I build the systems behind checkout flows, live inventory, and real-time apps.</h1>
+    <p class="role">Full Stack Developer at Kenz Baladna Trading Company, Doha, shipping production e-commerce and CRM platforms end-to-end — from Vuetify interfaces to Firestore security rules to concurrency-safe Node backends.</p>
+    <div class="ctas">
+      <a href="#projects" class="btn primary">View projects</a>
+      <a href="#contact" class="btn ghost">Get in touch</a>
+    </div>
+    <div class="stackline">
+      <span><b>Frontend</b> · Vue 3, Pinia, Vuetify, React</span>
+      <span><b>Backend</b> · Firebase, Node.js, Express, MongoDB</span>
+      <span><b>Realtime</b> · Firestore, Socket.io, WebSockets</span>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="dim"><span>01</span><span class="line"></span><span>About</span></div>
+    <div class="grid">
+      <div>
+        <p>I'm a full stack developer with a passion for building complete, production-ready web applications from the ground up. My primary focus is developing specialized e-commerce and business platforms using Vue 3, Vite, and Pinia — covering everything from responsive product UIs and cart/checkout flows to full CMS admin panels with drag-and-drop category management.</p>
+        <p>What sets my work apart is the integration of real-world features: map-based delivery location selection using Leaflet.js, PDF invoice generation with jsPDF, browser-based email handling via EmailJS, and real-time data management with Firebase (Firestore + Authentication).</p>
+        <p>I've also built and deployed a real-time MERN stack application featuring WebSocket-based concurrency control, JWT authentication, and Swagger-documented APIs — deployed with a full CI/CD pipeline across Vercel, Render, and MongoDB Atlas. That gives me range across two production-grade stacks rather than depth in just one, and I genuinely enjoy finding clean solutions to complex user flows.</p>
+      </div>
+      <div>
+        <div class="fact"><div class="n">2+</div><div class="d">production platforms architected end-to-end — UI to security rules to deployment</div></div>
+        <div class="fact"><div class="n">2</div><div class="d">stacks in active use: Vue 3 / Firebase and MERN</div></div>
+        <div class="fact"><div class="n">5yrs</div><div class="d">building software, from mobile IoT apps to real-time web platforms</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="dim"><span>02</span><span class="line"></span><span>Skills</span></div>
+    <h2 class="sec-title">Skills &amp; technologies</h2>
+    <p class="sec-sub">Two full stacks, plus the infrastructure and integrations that make them production-ready.</p>
+    <div class="skillgrid">
+      <div class="skillcat">
+        <h3>Frontend</h3>
+        <ul><li>Vue 3 (Composition API)</li><li>Pinia / Vuex</li><li>Vuetify</li><li>React.js</li><li>Tailwind CSS</li><li>HTML / CSS / JavaScript</li></ul>
+      </div>
+      <div class="skillcat">
+        <h3>Backend</h3>
+        <ul><li>Node.js / Express</li><li>Firebase (Firestore, Auth, Cloud Functions)</li><li>MongoDB / Mongoose</li><li>.NET Core, C#</li><li>Python / Django</li></ul>
+      </div>
+      <div class="skillcat">
+        <h3>Real-time &amp; integrations</h3>
+        <ul><li>Socket.io / WebSockets</li><li>Firestore real-time listeners</li><li>Leaflet.js (map-based delivery)</li><li>jsPDF (invoice generation)</li><li>EmailJS</li><li>SignalR</li></ul>
+      </div>
+      <div class="skillcat">
+        <h3>Infra &amp; tooling</h3>
+        <ul><li>JWT authentication</li><li>Swagger / OpenAPI</li><li>Vercel, Render, Netlify</li><li>CI/CD pipelines</li><li>Git / GitHub</li><li>MongoDB Atlas</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="dim"><span>03</span><span class="line"></span><span>Projects</span></div>
+    <h2 class="sec-title">Featured projects</h2>
+    <p class="sec-sub">Production systems I've architected and shipped, end to end.</p>
+
+    <div class="project">
+      <div class="ptop">
+        <div>
+          <h3>Kenz Baladna — E-commerce Marketplace</h3>
+          <div class="role">Vue 3 · Firebase · Pinia · Vuetify</div>
+        </div>
+        <div class="period">Current role</div>
+      </div>
+      <p class="desc">A full e-commerce platform I own end-to-end for a leading FMCG trading company in Qatar: server-side Firestore pagination, atomic transaction-based stock reservation, a coupon and discount engine, an admin panel with bulk product import and barcode support, and a Cloudflare-fronted deployment with custom domain and DNS setup.</p>
+      <ul class="points">
+        <li>Rebuilt catalog browsing from client-side pagination to cursor-based server queries with composite indexes</li>
+        <li>Implemented atomic stock reservation and race-condition-safe checkout with <code>runTransaction</code></li>
+        <li>Built the admin panel: bulk price updates, product import with barcode matching, scheduled sale pricing via Cloud Functions</li>
+        <li>Built the collection/shop page: dynamic category filtering, price-range sliders, sort controls, and a mobile-first drawer-based filter UX</li>
+        <li>Engineered reusable ProductCard components for grid/list layouts, flash-sale and variant pricing, and animated add-to-cart interactions</li>
+      </ul>
+      <div class="tags"><span class="tag">Vue 3</span><span class="tag">Firestore</span><span class="tag">Pinia</span><span class="tag">Cloud Functions</span></div>
+    </div>
+
+    <div class="project">
+      <div class="ptop">
+        <div>
+          <h3>ICR CRM (PieceOfWork)</h3>
+          <div class="role">Vue.js · Firebase CRM</div>
+        </div>
+        <div class="period">Consultancy project</div>
+      </div>
+      <p class="desc">A consultancy CRM built on a Firestore "bundle" architecture, where related records are stored in single documents for fast reads. Diagnosed and fixed a critical data-loss bug spanning five store files that was silently wiping data bundles on momentary document-not-found events.</p>
+      <ul class="points">
+        <li>Designed and maintained the Firestore bundle data model across the app</li>
+        <li>Traced and fixed a store-level bug causing silent data loss, correcting five stores and shared utilities</li>
+      </ul>
+      <div class="tags"><span class="tag">Vue.js</span><span class="tag">Firestore</span><span class="tag">CRM architecture</span></div>
+    </div>
+
+    <div class="project">
+      <div class="ptop">
+        <div>
+          <h3>Pulse Tickets — Real-time Ticketing Platform</h3>
+          <div class="role">MERN · Socket.io · JWT</div>
+        </div>
+        <div class="period">Personal build</div>
+      </div>
+      <p class="desc">A real-time event ticketing and seat reservation system built to prove out full stack range beyond Vue/Firebase. Uses atomic MongoDB operations and WebSockets to prevent double-booking under concurrent users, with a documented REST API and a full CI/CD deployment pipeline.</p>
+      <ul class="points">
+        <li>Built atomic seat-locking with MongoDB to guarantee no double-booking under concurrency</li>
+        <li>Implemented Socket.io for live seat-map updates across simultaneous users</li>
+        <li>Secured the API with JWT auth and bcrypt, documented it with Swagger/OpenAPI</li>
+        <li>Deployed via CI/CD: frontend on Vercel, backend on Render, database on MongoDB Atlas</li>
+      </ul>
+      <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Socket.io</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="dim"><span>04</span><span class="line"></span><span>Experience</span></div>
+    <h2 class="sec-title">Work experience</h2>
+    <p class="sec-sub">&nbsp;</p>
+
+    <div class="exp-item">
+      <div class="period">Dec 2025 – Present</div>
+      <div>
+        <h3>Kenz Baladna Trading Company — Doha, Qatar</h3>
+        <div class="role">Full Stack Developer</div>
+        <ul>
+          <li>Building and maintaining a Vue.js e-commerce web application for a leading FMCG trading company in Qatar, handling product collections, cart, checkout, and order management</li>
+          <li>Developed a full-featured collection/shop page with dynamic category filtering, price-range sliders, sort controls, and a mobile-first responsive layout with drawer-based filter UX</li>
+          <li>Engineered reusable ProductCard components supporting grid/list layouts, flash-sale pricing, variant-based pricing, and animated add-to-cart interactions using Vuetify and custom CSS</li>
+          <li>Integrated Pinia stores for reactive global state management across cart, products, and user authentication flows</li>
+          <li>Collaborated with backend engineers to consume RESTful APIs and Firebase Firestore for real-time product data, flash sales, and order processing</li>
+          <li>Optimised mobile performance using lazy loading, scroll-based pagination, and viewport-aware rendering for a seamless experience across devices</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="period">Aug 2024 – Aug 2025</div>
+      <div>
+        <h3>IoT Mobile App — Inthings Technologies</h3>
+        <div class="role">Software Engineer</div>
+        <ul>
+          <li>Developed cross-platform mobile apps using .NET MAUI for Android, focusing on performance and IoT integration</li>
+          <li>Implemented Bluetooth scanning, SignalR for real-time updates, and MVVM architecture with C# and XAML</li>
+          <li>Handled API integrations, user preferences, and UI responsiveness; fixed memory leaks and platform issues</li>
+          <li>Collaborated via Git, ensuring scalable and maintainable code</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="period">Jun 2022 – Jun 2024</div>
+      <div>
+        <h3>Scalable Web Applications — Sinet Logics</h3>
+        <div class="role">Web Developer</div>
+        <ul>
+          <li>Designed web apps using Python/Django, relational databases, and RESTful APIs for high-performance experiences</li>
+          <li>Handled CRUD operations, authentication, and dynamic rendering with JS and Django templates</li>
+          <li>Ensured mobile responsiveness, cross-browser compatibility, and code quality via Git and unit testing</li>
+          <li>Participated in code reviews and cross-functional collaboration</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="period">Sep 2021 – May 2022</div>
+      <div>
+        <h3>Dynamic SPA Web App — Foonza Media</h3>
+        <div class="role">Junior Developer</div>
+        <ul>
+          <li>Built a single-page application with Vue.js frontend and Firebase backend for real-time features</li>
+          <li>Integrated authentication, database, and state management (Vuex) for responsive user experiences</li>
+          <li>Debugged and optimized for cross-device compatibility, enhancing performance and functionality</li>
+          <li>Collaborated on feature implementation and UI/UX improvements</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="dim"><span>05</span><span class="line"></span><span>Education</span></div>
+    <div class="edu">
+      <h3>Bachelor of Engineering in Computer Science</h3>
+      <div class="meta">Anna University, Chennai, Tamil Nadu, India · Aug 2017 – May 2021 · CGPA 7.80</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="dim"><span>06</span><span class="line"></span><span>Contact</span></div>
+    <h2 class="sec-title">Let's connect</h2>
+    <p class="sec-sub">Interested in collaborating or discussing opportunities? Reach out today.</p>
+    <div class="contact-grid">
+      <div>
+        <a class="big" href="mailto:sainulabidtp7@gmail.com">sainulabidtp7@gmail.com</a>
+        <a class="big" href="tel:+918589069558">+91 85890 69558</a>
+      </div>
+      <div class="contact-list">
+        <div><a href="https://www.linkedin.com/in/sainulabidtp" target="_blank" rel="noopener">LinkedIn — /in/sainulabidtp</a></div>
+        <div>Based in Doha, Qatar · open to opportunities in India &amp; the Gulf region</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Sainul Abid. Built with intent, not a template.</div>
+</footer>
+
+</body>
+</html>
