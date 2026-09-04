@@ -134,7 +134,14 @@
   .project ul.points li{ padding-left:16px; position:relative; }
   .project ul.points li::before{ content:'—'; position:absolute; left:0; color:var(--accent); }
   .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+  .livelinks{ display:flex; flex-wrap:wrap; gap:16px; margin-top:2px; }
+  .livelinks a{ font-size:13px; color:var(--accent); border-bottom:1px solid transparent; }
+  .livelinks a:hover{ border-bottom-color:var(--accent); }
+  .livelinks .private{ font-size:13px; color:var(--text-dim); font-style:italic; }
   .tag{ font-size:11.5px; color:var(--accent); border:1px solid #3a3020; background:rgba(255,138,61,0.08); padding:4px 9px; border-radius:3px; }
+  .livelinks{ display:flex; flex-wrap:wrap; gap:18px; margin-top:2px; }
+  .livelinks a{ font-size:13px; color:var(--accent); border-bottom:1px solid transparent; transition:border-color .15s; }
+  .livelinks a:hover{ border-color:var(--accent); }
 
   .exp-item{ display:grid; grid-template-columns: 160px 1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--grid-faint); }
   .exp-item:last-child{ border-bottom:none; }
@@ -267,6 +274,10 @@
         <li>Engineered reusable ProductCard components for grid/list layouts, flash-sale and variant pricing, and animated add-to-cart interactions</li>
       </ul>
       <div class="tags"><span class="tag">Vue 3</span><span class="tag">Firestore</span><span class="tag">Pinia</span><span class="tag">Cloud Functions</span></div>
+      <div class="livelinks">
+        <a href="https://www.kenzbaladnaonline.com/" target="_blank" rel="noopener">kenzbaladnaonline.com ↗</a>
+        <a href="https://baladnadiscountcenter.com/" target="_blank" rel="noopener">baladnadiscountcenter.com ↗</a>
+      </div>
     </div>
 
     <div class="project">
@@ -283,6 +294,7 @@
         <li>Traced and fixed a store-level bug causing silent data loss, correcting five stores and shared utilities</li>
       </ul>
       <div class="tags"><span class="tag">Vue.js</span><span class="tag">Firestore</span><span class="tag">CRM architecture</span></div>
+      <div class="livelinks"><span class="private">Private client project — no public link</span></div>
     </div>
 
     <div class="project">
@@ -301,6 +313,9 @@
         <li>Deployed via CI/CD: frontend on Vercel, backend on Render, database on MongoDB Atlas</li>
       </ul>
       <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">Socket.io</span></div>
+      <div class="livelinks">
+        <a href="https://pulse-tickets-mu.vercel.app/" target="_blank" rel="noopener">pulse-tickets-mu.vercel.app ↗</a>
+      </div>
     </div>
   </div>
 </section>
